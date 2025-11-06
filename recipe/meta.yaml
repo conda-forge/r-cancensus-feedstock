@@ -1,4 +1,4 @@
-{% set version = '0.5.7' %}
+{% set version = "0.5.10" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,14 +9,18 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/cancensus_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/cancensus/cancensus_{{ version }}.tar.gz
-  sha256: f96bfd8d0c148051f35726a9cbd46715f8e1cc9679302d99b2c2b6efd7126908
+  sha256: dcc34bd53653c47d19eb0e2f0a3d4eb84ae2f04863d0fab5c3b08e63f3c7e745
 
 build:
-  number: 2
+  number: 0
   noarch: generic
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
@@ -25,17 +29,23 @@ requirements:
   host:
     - r-base
     - r-digest >=0.1
-    - r-dplyr >=0.7
+    - r-dplyr >=1.0
+    - r-geojsonsf
     - r-httr >=1.0.0
     - r-jsonlite >=1.0
+    - r-readr
     - r-rlang
+    - r-sf
   run:
     - r-base
     - r-digest >=0.1
-    - r-dplyr >=0.7
+    - r-dplyr >=1.0
+    - r-geojsonsf
     - r-httr >=1.0.0
     - r-jsonlite >=1.0
+    - r-readr
     - r-rlang
+    - r-sf
 
 test:
   commands:
@@ -43,17 +53,10 @@ test:
     - "\"%R%\" -e \"library('cancensus')\""  # [win]
 
 about:
-  home: https://github.com/mountainMath/cancensus, https://mountainmath.github.io/cancensus/,
-    https://censusmapper.ca/api
+  home: https://github.com/mountainMath/cancensus, https://mountainmath.github.io/cancensus/, https://censusmapper.ca/api
   license: MIT
-  summary: Integrated, convenient, and uniform access to Canadian Census data and geography retrieved
-    using the 'CensusMapper' API. This package produces analysis-ready tidy data frames
-    and spatial data in multiple formats, as well as convenience functions for working
-    with Census variables, variable hierarchies, and region selection. API keys are
-    freely available with free registration at <https://censusmapper.ca/api>. Census
-    data and boundary geometries are reproduced and distributed on an "as is" basis
-    with the permission of Statistics Canada (Statistics Canada 2001; 2006; 2011; 2016;
-    2021).
+  summary: Integrated, convenient, and uniform access to Canadian Census data and geography retrieved using the 'CensusMapper' API. This package produces analysis-ready tidy data frames and spatial data in multiple formats, as well as convenience functions for working with Census variables, variable hierarchies, and region
+    selection. API keys are freely available with free registration at <https://censusmapper.ca/api>. Census data and boundary geometries are reproduced and distributed on an "as is" basis with the permission of Statistics Canada (Statistics Canada 2001; 2006; 2011; 2016; 2021).
   license_family: MIT
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/MIT'

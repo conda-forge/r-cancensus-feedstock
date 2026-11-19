@@ -1,4 +1,4 @@
-{% set version = "0.6.1" %}
+{% set version = "0.6.2" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,7 +9,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/cancensus_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/cancensus/cancensus_{{ version }}.tar.gz
-  sha256: b4b5f1606c8db0c791cf58c2ac3cf296fbfad288e4b3e164dd23831bb89c716a
+  sha256: acc1afd7bc9b33084e98171e1f3e422c6f550b7f16a55d59d2c98ca1100014b8
 
 build:
   number: 0
